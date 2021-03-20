@@ -1,3 +1,4 @@
 rootProject.name = 'spring-boot-demo'
 
 include 'spring-boot-demo-hello'
+include 'spring-boot-demo-logback'

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- logback 日志配置-->
+<configuration>
+
+    <!--为防止进程退出造成内存中日志数据丢失，加上此选项-->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <!--定义属性-->
+    <property name="logFile" value="logs/log"/>
+    <property name="maxFileSize" value="10MB"/>
+    <!--SpringBoot配置文件中的参数，注意：文件名需命名为logback-spring.xml而非logback.xml，否则logback.xml会先加载而读取不到-->
+    <springProperty name="appname" source="spring.application.name"/>
+
+    <!--控制台日志-->
+    <appender name="log_console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--日志输出格式-->
+            <pattern>%d ${appname} %highlight([%5.-5level]) %cyan(%25.-25logger-%32.32logger{30}:%4line:) %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--文件日志(滚动)-->
+    <appender name="log_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logFile}.log</file>
+        <encoder>
+            <!--日志输出格式-->
+            <pattern>%d %5.-5level [%21.21thread] %25.-25logger-%32.32logger{30}:%4line: %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logFile}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 根 据 环 境 配 置 日 志 输 出 -->
+
+    <!--默认环境、开发环境：输出所有info日志至console-->
+    <springProfile name="default,dev">
+        <root level="info">
+            <appender-ref ref="log_console"/>
+        </root>
+        <!--自己的代码输出级别调整至debug-->
+        <logger name="cn.lttc" level="debug" additivity="false">
+            <appender-ref ref="log_console"/>
+        </logger>
+    </springProfile>
+
+    <!--生产环境：输出所有info日志至文件-->
+    <springProfile name="prod">
+        <root level="info">
+            <appender-ref ref="log_file"/>
+        </root>
+    </springProfile>
+
+</configuration>
