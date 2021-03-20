@@ -12,6 +12,7 @@
 ## 示例目录
 
 - [spring-boot-demo-hello](./spring-boot-demo-hello) 入门示例
-- [spring-boot-demo-properties](./spring-boot-demo-properties) 配置文件
+- [spring-boot-demo-config](./spring-boot-demo-config) 配置文件
+- [spring-boot-demo-logback](./spring-boot-demo-logback) 日志配置(logback)
 
-> 💖访问**[我的博客](https://weiku.co/tag/spring-boot)**，查看更多 `Spring Boot` 文章教程。
+> 💖访问[我的博客](https://weiku.co/tag/spring-boot)，查看更多 `Spring Boot` 文章教程。
