@@ -14,5 +14,16 @@
 - [spring-boot-demo-hello](./spring-boot-demo-hello) 入门示例
 - [spring-boot-demo-config](./spring-boot-demo-config) 配置文件
 - [spring-boot-demo-logback](./spring-boot-demo-logback) 日志配置(logback)
+- [spring-boot-demo-shiro](./spring-boot-demo-shiro) Shiro 权限控制
+
+## 其它内容
 
 > 💖访问[我的博客](https://weiku.co/tag/spring-boot)，查看更多 `Spring Boot` 文章教程。
+
+## 常见问题
+
+#### 新建子项目构建失败
+
+提示错误：`Task 'wrapper' not found in project ':spring-boot-demo-shiro'.`
+
+解决方案：关闭 IDEA 重新打开。

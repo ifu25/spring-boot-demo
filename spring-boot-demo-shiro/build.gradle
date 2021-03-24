@@ -1,0 +1,12 @@
+plugins {
+
+}
+
+dependencies {
+    //MySql 驱动
+    implementation('mysql:mysql-connector-java:8.0.23')
+    //MyBatis-Plus 访问数据库
+    implementation('com.baomidou:mybatis-plus-boot-starter:3.4.2')
+    //Shiro 权限控制
+    implementation('org.apache.shiro:shiro-spring:1.7.1')
+}
