@@ -15,6 +15,7 @@
 - [spring-boot-demo-config](./spring-boot-demo-config) 配置文件
 - [spring-boot-demo-logback](./spring-boot-demo-logback) 日志配置(logback)
 - [spring-boot-demo-shiro](./spring-boot-demo-shiro) Shiro 权限控制
+- [spring-boot-demo-security](./spring-boot-demo-security) Spring Security 权限控制
 
 ## 其它内容
 
