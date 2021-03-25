@@ -1,10 +1,10 @@
-package cn.lttc.hellodemo;
+package cn.lttc.logbackdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HelloDemoApplicationTests {
+class LogbackDemoTests {
 
     @Test
     void contextLoads() {

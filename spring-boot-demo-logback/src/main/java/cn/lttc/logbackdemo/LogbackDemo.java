@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LogbackDemoApplication {
+public class LogbackDemo {
 
     public static void main(String[] args) {
-        SpringApplication.run(LogbackDemoApplication.class, args);
+        SpringApplication.run(LogbackDemo.class, args);
     }
 
 }
