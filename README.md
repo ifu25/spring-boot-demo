@@ -25,6 +25,6 @@
 
 #### 新建子项目构建失败
 
-提示错误：`Task 'wrapper' not found in project ':spring-boot-demo-shiro'.`
+提示错误：`Task 'wrapper' not found in project ':spring-boot-demo-xxx'`
 
-解决方案：关闭 IDEA 重新打开。
+解决方案：关闭 IDEA 并删除项目目录下的 `.idea` 文件夹然后重新打开。
