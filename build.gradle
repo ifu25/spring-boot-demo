@@ -38,7 +38,7 @@ subprojects {
         mavenCentral()
     }
 
-    //项目中所使用到的依赖，这里添加的依赖会被所有项目，包括root项目继承
+    //所有子项目公用的依赖。每个项目单独的依赖请在子项目的 build.gradle 中配置
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"

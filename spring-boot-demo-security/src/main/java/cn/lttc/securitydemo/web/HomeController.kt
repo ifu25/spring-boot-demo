@@ -1,6 +1,7 @@
 package cn.lttc.securitydemo.web
 
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -30,9 +31,20 @@ open class HomeController {
         return "<a href='/'><<返回主页</a> <br><br><h1>hello test</h1>"
     }
 
+    /**
+     * 注解方式
+     */
     @RequestMapping("/admin2")
     @PreAuthorize("hasRole('test')")
     open fun admin2(): Any {
         return "<a href='/'><<返回主页</a> <br><br><h1>hello admin2</h1>"
+    }
+
+    /**
+     * 获取当前用户信息
+     */
+    @RequestMapping("/userInfo")
+    fun userInfo(): Any {
+        return "当前登录用户：${SecurityContextHolder.getContext().authentication.name}"
     }
 }

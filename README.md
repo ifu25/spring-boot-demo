@@ -16,6 +16,11 @@
 - [spring-boot-demo-logback](./spring-boot-demo-logback) 日志配置(logback)
 - [spring-boot-demo-shiro](./spring-boot-demo-shiro) Shiro 权限控制
 - [spring-boot-demo-security](./spring-boot-demo-security) Spring Security 权限控制
+- [spring-boot-demo-swagger](./spring-boot-demo-swagger) Swagger 接口文档
+
+## 文档手册
+
+- [01-创建新的子项目的方法](./docs/01-create-new-demo.md)
 
 ## 其它内容
 
