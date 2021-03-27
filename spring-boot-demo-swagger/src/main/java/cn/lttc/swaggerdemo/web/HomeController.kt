@@ -19,6 +19,6 @@ class HomeController {
     @GetMapping("/")
     @ApiOperation("获得指定用户编号的用户", notes = "目前仅作为测试，所以返回一个字符串")
     fun index(): Any {
-        return "Hello Swagger"
+        return "Hello Swagger + knife4j！<a href= '/doc.html'>点此浏览文档>></a>"
     }
 }

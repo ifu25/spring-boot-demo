@@ -3,7 +3,13 @@ plugins {
 }
 
 dependencies {
+    //方案1：swagger + swagger ui
     //implementation('io.springfox:springfox-swagger2:3.0.0')
     //implementation('io.springfox:springfox-swagger-ui:3.0.0')
-    implementation('io.springfox:springfox-boot-starter:3.0.0')
+
+    //方案2：直接使用 starter
+    //implementation('io.springfox:springfox-boot-starter:3.0.0')
+
+    //方案3：使用 swagger 的增强实现 knife4j（建议）
+    implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.2'
 }
