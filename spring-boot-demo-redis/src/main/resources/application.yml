@@ -1,0 +1,14 @@
+spring:
+  # 对应 RedisProperties 类
+  redis:
+    host: 192.168.190.139
+    cluster:
+      nodes: 192.168.190.139:7001,192.168.190.139:7002,192.168.190.139:7003,192.168.190.139:7004,192.168.190.139:7005,192.168.190.139:7006
+    password: 123456
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+mybatis:
+  mapper-locations: classpath:cn/lttc/redisdemo/mapper/*xml
