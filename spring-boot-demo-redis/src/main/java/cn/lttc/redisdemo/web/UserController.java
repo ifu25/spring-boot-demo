@@ -46,7 +46,7 @@ public class UserController {
         List<User> allUser = userService.findAllUser();
         //将用户信息缓存到redis中
         for (User user : allUser) {
-            redisTemplate.opsForHash().put("user",user.getId(),user);
+            redisTemplate.opsForHash().put("user",user.getId().toString(),user);
         }
         modelAndView.addObject("allUser",allUser);
         modelAndView.setViewName("lottery-adduser");
@@ -87,7 +87,7 @@ public class UserController {
         redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<User>(User.class));
         assert lottery != null;
         for (Object userId : lottery) {
-            User user = (User)redisTemplate.opsForHash().get("user", userId);
+            User user = (User)redisTemplate.opsForHash().get("user", userId.toString());
             userLst.add(user);
         }
         modelAndView.addObject("lotteryUser",userLst);
@@ -111,7 +111,7 @@ public class UserController {
         if(lotteryUserIdLst.size()>0){
             for (Object lotteryUserId : lotteryUserIdLst) {
                 redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<User>(User.class));
-                User user = (User)redisTemplate.opsForHash().get("user", (Integer)lotteryUserId);
+                User user = (User)redisTemplate.opsForHash().get("user", lotteryUserId.toString());
                 retUserLst.add(user);
             }
         }
