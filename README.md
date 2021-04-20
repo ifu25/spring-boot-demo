@@ -21,6 +21,7 @@
 ## 文档手册
 
 - [01-创建新的子项目的方法](./docs/01-create-new-demo.md)
+- [02-编码指南与规范](./docs/02-code-guideline.md)
 
 ## 其它内容
 
