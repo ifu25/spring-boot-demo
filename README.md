@@ -13,10 +13,12 @@
 
 - [spring-boot-demo-hello](./spring-boot-demo-hello) 入门示例
 - [spring-boot-demo-config](./spring-boot-demo-config) 配置文件
+- [spring-boot-demo-template-thymeleaf](./spring-boot-demo-template-thymeleaf) Thymeleaf 模板引擎
 - [spring-boot-demo-logback](./spring-boot-demo-logback) 日志配置(logback)
 - [spring-boot-demo-shiro](./spring-boot-demo-shiro) Shiro 权限控制
 - [spring-boot-demo-security](./spring-boot-demo-security) Spring Security 权限控制
 - [spring-boot-demo-swagger](./spring-boot-demo-swagger) Swagger 接口文档
+- [spring-boot-demo-redis](./spring-boot-demo-redis) Redis 缓存操作
 
 ## 文档手册
 

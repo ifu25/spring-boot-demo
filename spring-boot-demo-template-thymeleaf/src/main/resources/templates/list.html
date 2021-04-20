@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+</head>
+<body>
+
+<div th:replace="_nav::nav"></div>
+
+<h1>for 循环</h1>
+<div>
+    <li th:each="user,iterStat : ${users}">
+        <span th:text="${iterStat.index}">index</span>
+        <span th:text="${user.userName}">小刚</span>
+        <span th:text="${user.age}">18</span>
+        <span th:text="${user.deptName}">信息部</span>
+    </li>
+</div>
+
+</body>
+</html>

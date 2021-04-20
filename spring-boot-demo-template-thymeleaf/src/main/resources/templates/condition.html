@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>条件判断</title>
+</head>
+<body>
+
+<div th:replace="_nav::nav"></div>
+
+<p th:text="${user.userName}"></p>
+<p th:text="${user.email}"></p>
+<p th:text="${user.age gt 18 ? '成年':'未成年'}"></p>
+<p th:if="${user.age gt 28}" th:text="成年"></p>
+
+</body>
+</html>
