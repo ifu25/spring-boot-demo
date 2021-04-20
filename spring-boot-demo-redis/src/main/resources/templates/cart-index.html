@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+模拟用户:<input type="text" value="1" id="user-id">
+<table border="1px">
+    <tr>
+        <th>
+            选择
+        </th>
+        <th>
+            产品名
+        </th>
+        <th>
+            产品价格
+        </th>
+        <th>
+            选择数量
+        </th>
+        <th>
+            增加
+        </th>
+        <th>
+            减少
+        </th>
+    </tr>
+    <tr th:each="productDto:${cartDto.productDto}">
+        <td><input type="checkbox" id="isSelect"></td>
+        <td th:text="${productDto.product.name}"></td>
+        <td th:text="${productDto.product.price}"></td>
+        <td th:text="${productDto.count}" id="count"></td>
+        <td><button th:onclick="productIncr(this,[[${productDto.product.id}]])">+1</button></td>
+        <td><button th:onclick="productDecr(this,[[${productDto.product.id}]])">-1</button></td>
+    </tr>
+</table>
+</body>
+<script>
+    function productIncr(obj,productId) {
+        var thisObj = $(obj)
+        var data={}
+        var userId = $("#user-id").val()
+        data["productId"] = productId
+        data["userId"] = userId
+        $.ajax({
+            type: "post",
+            url: "/product/cart/productIncr",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = thisObj.parent().parent().find("#count").eq(0).text()
+                thisObj.parent().parent().find("#count").eq(0).text(parseInt(count)+1)
+                alert("数量添加成功:"+data.msg)
+            },
+            error: function (data) {
+                alert("数量添加失败:"+data.msg)
+            }
+        })
+    }
+    function productDecr(obj,productId) {
+        var thisObj = $(obj)
+        var data={}
+        var userId = $("#user-id").val()
+        data["productId"] = productId
+        data["userId"] = userId
+        $.ajax({
+            type: "post",
+            url: "/product/cart/productDecr",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var count = thisObj.parent().parent().find("#count").eq(0).text()
+                thisObj.parent().parent().find("#count").eq(0).text(parseInt(count)-1)
+                alert("数量减少成功:"+data.msg)
+            },
+            error: function (data) {
+                alert("数量减少失败:"+data.msg)
+            }
+        })
+    }
+</script>
+</html>

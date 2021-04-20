@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 产品实体类
+ * 用户实体类
  *
  * @author sunjian
  * @create 2021-04-16
@@ -15,8 +15,8 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product implements Serializable {
+public class User implements Serializable {
     private Integer id;
-    private String name;
-    private Double price;
+    private String username;
+    private String password;
 }

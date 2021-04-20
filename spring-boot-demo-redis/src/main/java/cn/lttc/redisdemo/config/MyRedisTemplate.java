@@ -9,23 +9,32 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * @description:
- * @author: sunj
- * @time: 2021/04/01 19:09
+ * redisTemplate配置类
+ *
+ * @author sunjian
+ * @create 2021-04-16
  */
 @Configuration
 public class MyRedisTemplate {
+    /**
+     * 初始化RedisTemplate
+     * @param redisConnectionFactory redis连接工厂
+     * @return org.springframework.data.redis.core.RedisTemplate<java.lang.String,java.lang.Object> 返回RedisTemplate供其他类调用
+     */
     @Bean
     public RedisTemplate<String,Object> redisTemplate(
             RedisConnectionFactory redisConnectionFactory) {
         //自定义实现对于RedisTemplate的配置
         RedisTemplate<String,Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
-        //设置一JSON格式存储或者获取对象
+        // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
-        Jackson2JsonRedisSerializer<Object> ser = new Jackson2JsonRedisSerializer<Object>(Object.class);
-        //为templeate设置默认的序列化方式
-        template.setDefaultSerializer(ser);
+        template.setHashKeySerializer(new StringRedisSerializer());
+
+        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
+        // value值的序列化采用fastJsonRedisSerializer
+        template.setHashValueSerializer(serializer);
+        template.setValueSerializer(serializer);
         return template;
     }
 }

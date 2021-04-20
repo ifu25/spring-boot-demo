@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>抽奖</title>
+</head>
+<body>
+    <table border="1px" id="userTable">
+        <tr>
+            <th>
+                选择
+            </th>
+            <th>
+                用户id
+            </th>
+            <th>
+                用户名
+            </th>
+        </tr>
+        <tr th:each="user:${allUser}">
+            <td><input type="checkbox" id="isSelect"></td>
+            <td th:text="${user.id}" id="userId"></td>
+            <td th:text="${user.username}"></td>
+        </tr>
+    </table>
+    <input type="button" name="add" value="添加" onclick="addUser()"/>
+    <a href="/user/lottery/main">进入抽奖主界面</a>
+</body>
+<script>
+    function addUser() {
+        var userLst = [];
+        $("#userTable tr").each(function () {
+            var tr=$(this)
+            var td = tr.find("td")
+            if($(this).find("input[type=checkbox]:checked").val() != undefined) {
+                var userId = tr.find("#userId").eq(0).text()
+                userLst.push(userId)
+            }
+        })
+        this.sendAddUserRequest(userLst)
+    }
+    function sendAddUserRequest(userLst) {
+        var jsonData = {}
+        jsonData["addUserId"] = userLst
+        var data = JSON.stringify(jsonData)
+        $.ajax({
+            type: "post",
+            url: "/user/lottery/addUser",
+            data: data,
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                console.log(data)
+                alert("添加抽奖成员成功")
+            },
+            error: function (data) {
+                console.log(data)
+                alert("添加抽奖成员失败"+data)
+            }
+        });
+    }
+</script>
+</html>

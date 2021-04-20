@@ -5,9 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @description:
- * @author: sunj
- * @time: 2021/04/01 18:54
+ * redisDemo启动器
+ *
+ * @author sunjian
+ * @create 2021-04-16
  */
 @SpringBootApplication
 @MapperScan("cn.lttc.redisdemo.mapper")

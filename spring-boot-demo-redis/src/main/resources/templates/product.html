@@ -1,12 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <span th:text="${product.id}"/>
-    <span th:text="${product.name}"/>
-    <span th:text="${product.price}"/>
+模拟用户:<input type="text" value="1" id="user-id">
+    <table id="product"border="1px">
+        <tr>
+            <th>
+                选择
+            </th>
+            <th>
+                产品id
+            </th>
+            <th>
+                产品名称
+            </th>
+            <th>
+                产品价格
+            </th>
+        </tr>
+        <tr th:each="product:${productLst}">
+            <td><input type="checkbox"></td>
+            <td th:text="${product.id}" id="productId"></td>
+            <td th:text="${product.name}" id="productName"></td>
+            <td th:text="${product.price}" id="productPrice"></td>
+        </tr>
+    </table>
+    <input type="button" value="添加到购物车" onclick="addToCart()"/>
+    <input type="button" value="查看购物车" onclick="remoteToCartMain()"/>
 </body>
+    <script>
+        function addToCart() {
+            var productDtoLst = [];
+            $("#product tr").each(function () {
+                var tr=$(this)
+                var td = tr.find("td")
+                if($(this).find("input[type=checkbox]:checked").val() != undefined) {
+                    var productDto={}
+                    var productObj = {}
+
+                    var productId = tr.find("#productId").eq(0).text()
+                    var productName = tr.find("#productName").eq(0).text()
+                    var productPrice = tr.find("#productPrice").eq(0).text()
+                    productObj["id"] =productId
+                    productObj["name"] = productName
+                    productObj["price"] = productPrice
+                    productDto["product"] = productObj
+                    productDto["count"] = 1
+                    productDtoLst.push(productDto)
+                }
+            })
+            this.sendAddProductRequest(productDtoLst)
+        }
+        function sendAddProductRequest(productDtoLst) {
+            var jsonData = {}
+            jsonData["userId"] = $("#user-id").val()
+            jsonData["productDto"] = productDtoLst
+            var data = JSON.stringify(jsonData)
+            $.ajax({
+                type: "post",
+                url: "/product/cart/addProduct",
+                data: data,
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data)
+                    alert(data.msg)
+                },
+                error: function (data) {
+                    console.log(data)
+                    alert("添加购物车失败"+data)
+                }
+            });
+        }
+        function remoteToCartMain() {
+            window.location.href="/product/cart/main/"+$("#user-id").val()
+        }
+
+    </script>
 </html>

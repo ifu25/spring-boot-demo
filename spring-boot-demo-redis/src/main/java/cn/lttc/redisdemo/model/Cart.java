@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
- * 产品实体类
+ * 购物车实体类
  *
  * @author sunjian
  * @create 2021-04-16
@@ -15,8 +13,9 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product implements Serializable {
+public class Cart {
     private Integer id;
-    private String name;
-    private Double price;
+    private Integer userId;
+    private Integer productId;
+    private Integer count;
 }
