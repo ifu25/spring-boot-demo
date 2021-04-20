@@ -14,6 +14,9 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
     cache: false #关闭缓存
-
+  security:
+    user:
+      password: 123
+      name: 123
 mybatis:
   mapper-locations: classpath:cn/lttc/redisdemo/mapper/*xml

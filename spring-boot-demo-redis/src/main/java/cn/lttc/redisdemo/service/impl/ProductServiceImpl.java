@@ -57,7 +57,7 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
     public List<Product> findAllProduct() {
         List<Product> allProduct = productMapper.findAllProduct();
         for (Product product : allProduct) {
-            redisTemplate.opsForHash().put("product",product.getId(),product);
+            redisTemplate.opsForHash().put("product",product.getId().toString(),product);
         }
         return allProduct;
     }
@@ -73,10 +73,10 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
      */
     @Override
     public void addProductToCartToRedis(Integer userId, Integer productId, Integer count) {
-        if(redisTemplate.opsForHash().get("user:"+userId, productId)==null){
-            redisTemplate.opsForHash().put("user:"+userId, productId,count);
+        if(redisTemplate.opsForHash().get("user:"+userId, productId.toString())==null){
+            redisTemplate.opsForHash().put("user:"+userId, productId.toString(),count);
         }else {
-            redisTemplate.opsForHash().increment("user:"+userId, productId,count);
+            redisTemplate.opsForHash().increment("user:"+userId, productId.toString(),count);
         }
     }
 
@@ -96,9 +96,9 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
         for (Object productKey : productKeys) {
             ProductDto productDto = new ProductDto();
             redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Integer>(Integer.class));
-            Integer count = (Integer)redisTemplate.opsForHash().get("user:" + userId, productKey);
+            Integer count = (Integer)redisTemplate.opsForHash().get("user:" + userId, productKey.toString());
             redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Product>(Product.class));
-            Product product = (Product)redisTemplate.opsForHash().get("product", (Integer)productKey);
+            Product product = (Product)redisTemplate.opsForHash().get("product", productKey.toString());
             productDto.setCount(count);
             productDto.setProduct(product);
             productDtoList.add(productDto);
@@ -116,7 +116,7 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
      */
     @Override
     public void productIncr(Integer userId, Integer productId) {
-        redisTemplate.opsForHash().increment("user:"+userId,productId,1);
+        redisTemplate.opsForHash().increment("user:"+userId,productId.toString(),1);
     }
 
     /**
@@ -127,6 +127,6 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
      */
     @Override
     public void productDecr(Integer userId, Integer productId) {
-        redisTemplate.opsForHash().increment("user:"+userId,productId,-1);
+        redisTemplate.opsForHash().increment("user:"+userId,productId.toString(),-1);
     }
 }
