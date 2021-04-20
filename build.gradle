@@ -1,13 +1,13 @@
 buildscript {
 
     ext {
-        springbootVersion = '2.4.4'
-        kotlin_version = '1.4.31'
+        springbootVersion = '2.4.5'
+        kotlin_version = '1.4.32'
     }
 
     repositories {
         mavenLocal()
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
         mavenCentral()
     }
 
@@ -33,7 +33,7 @@ subprojects {
         //本地仓库
         mavenLocal()
         //阿里云
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         //中央仓库
         mavenCentral()
     }
