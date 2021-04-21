@@ -37,10 +37,10 @@ public class ProductController {
      * @return org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping("/findProductById/{id}")
-    public ModelAndView findProductById(@PathVariable("id") Integer id,ModelAndView modelAndView){
+    public ModelAndView findProductById(@PathVariable("id") Integer id, ModelAndView modelAndView) {
         Product product = productService.findProductById(id);
         modelAndView.setViewName("product");
-        modelAndView.addObject("product",product);
+        modelAndView.addObject("product", product);
         return modelAndView;
     }
 
@@ -51,10 +51,10 @@ public class ProductController {
      * @return org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping("/findAllProduct")
-    public ModelAndView findAllProduct(ModelAndView modelAndView){
+    public ModelAndView findAllProduct(ModelAndView modelAndView) {
         List<Product> productLst = productService.findAllProduct();
         modelAndView.setViewName("product");
-        modelAndView.addObject("productLst",productLst);
+        modelAndView.addObject("productLst", productLst);
         return modelAndView;
     }
 
@@ -66,7 +66,7 @@ public class ProductController {
      */
     @RequestMapping("/cart/addProduct")
     @ResponseBody
-    public JSONObject addProductToCart(@RequestBody CartDto cartDto){
+    public JSONObject addProductToCart(@RequestBody CartDto cartDto) {
         JSONObject retJson = new JSONObject();
         try {
             Integer userId = cartDto.getUserId();
@@ -74,13 +74,13 @@ public class ProductController {
             for (ProductDto productDto : productDtoLst) {
                 Integer productId = productDto.getProduct().getId();
                 Integer count = productDto.getCount();
-                productService.addProductToCartToRedis(userId,productId,count);
+                productService.addProductToCartToRedis(userId, productId, count);
             }
 
         } catch (Exception e) {
-            retJson.put("msg","添加购物车失败");
+            retJson.put("msg", "添加购物车失败");
         }
-        retJson.put("msg","添加购物车成功");
+        retJson.put("msg", "添加购物车成功");
         return retJson;
     }
 
@@ -88,13 +88,13 @@ public class ProductController {
      * 购物车主界面
      *
      * @param modelAndView mv
-     * @param userId 用户id
+     * @param userId       用户id
      * @return org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping("/cart/main/{userId}")
-    public ModelAndView cartMain(ModelAndView modelAndView,@PathVariable Integer userId){
-        CartDto cartDto =productService.getCartDaoByUserId(userId);
-        modelAndView.addObject("cartDto",cartDto);
+    public ModelAndView cartMain(ModelAndView modelAndView, @PathVariable Integer userId) {
+        CartDto cartDto = productService.getCartDaoByUserId(userId);
+        modelAndView.addObject("cartDto", cartDto);
         modelAndView.setViewName("cart-index");
         return modelAndView;
     }
@@ -107,15 +107,15 @@ public class ProductController {
      */
     @RequestMapping("/cart/productIncr")
     @ResponseBody
-    public JSONObject producyIncr(@RequestBody IncrDto incrDto){
+    public JSONObject producyIncr(@RequestBody IncrDto incrDto) {
         JSONObject retJson = new JSONObject();
         try {
             Integer userId = incrDto.getUserId();
             Integer productId = incrDto.getProductId();
-            productService.productIncr(userId,productId);
-            retJson.put("msg","success");
+            productService.productIncr(userId, productId);
+            retJson.put("msg", "success");
         } catch (Exception e) {
-            retJson.put("msg",e.getMessage());
+            retJson.put("msg", e.getMessage());
         }
         return retJson;
     }
@@ -128,15 +128,15 @@ public class ProductController {
      */
     @RequestMapping("/cart/productDecr")
     @ResponseBody
-    public JSONObject producyDecr(@RequestBody IncrDto incrDto){
+    public JSONObject producyDecr(@RequestBody IncrDto incrDto) {
         JSONObject retJson = new JSONObject();
         try {
             Integer userId = incrDto.getUserId();
             Integer productId = incrDto.getProductId();
-            productService.productDecr(userId,productId);
-            retJson.put("msg","success");
+            productService.productDecr(userId, productId);
+            retJson.put("msg", "success");
         } catch (Exception e) {
-            retJson.put("msg",e.getMessage());
+            retJson.put("msg", e.getMessage());
         }
         return retJson;
     }
