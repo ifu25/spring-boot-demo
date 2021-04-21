@@ -18,6 +18,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     public UserMapper userMapper;
+
     /**
      * @return java.util.List<cn.lttc.redisdemo.model.User> 用户集合
      */
