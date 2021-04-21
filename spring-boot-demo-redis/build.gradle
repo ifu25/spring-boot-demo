@@ -8,14 +8,10 @@ dependencies {
 
     //springboot-redis整合
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    //springboot-security权限框架整合
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     //springboot-thymeleaf模板引擎整合
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     //springboot-mybatis整合
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
-    //spring-session-redis整合
-    implementation 'org.springframework.session:spring-session-data-redis:2.4.3'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
     //mysql连接
     implementation 'mysql:mysql-connector-java:8.0.23'
     //jedis客户端
