@@ -37,8 +37,7 @@
             var productDtoLst = [];
             $("#product tr").each(function () {
                 var tr=$(this)
-                var td = tr.find("td")
-                if($(this).find("input[type=checkbox]:checked").val() != undefined) {
+                if(tr.find("input[type=checkbox]:checked").val() != undefined) {
                     var productDto={}
                     var productObj = {}
 

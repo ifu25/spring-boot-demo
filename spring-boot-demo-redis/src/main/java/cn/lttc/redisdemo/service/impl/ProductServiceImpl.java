@@ -25,58 +25,61 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
     @Autowired
     private ProductMapper productMapper;
     @Autowired
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
-     *  根据产品id获取产品
+     * 根据产品id获取产品
+     *
      * @param id 产品id
      * @return cn.lttc.redisdemo.model.Product 产品实体
      */
     @Override
     public Product findProductById(Integer id) {
         Product product = null;
-        String key = "product:"+id;
+        String key = "product:" + id;
         //若redis中包含此key，则从redis中获取，若不包含，则从mysql数据库中获取
-        if(redisTemplate.hasKey(key)){
+        if (redisTemplate.hasKey(key)) {
             System.out.println("从redis中获取");
             redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<Product>(Product.class));
-            product =(Product) redisTemplate.opsForValue().get(key);
-        }else {
+            product = (Product) redisTemplate.opsForValue().get(key);
+        } else {
             System.out.println("从数据库中获取");
-            product= productMapper.findProductById(id);
-            redisTemplate.opsForValue().set(key,product);
+            product = productMapper.findProductById(id);
+            redisTemplate.opsForValue().set(key, product);
         }
         return product;
     }
 
     /**
      * 获取所有产品，并将产品添加到redis中
+     *
      * @return List<Product> 产品集合
      */
     @Override
     public List<Product> findAllProduct() {
         List<Product> allProduct = productMapper.findAllProduct();
         for (Product product : allProduct) {
-            redisTemplate.opsForHash().put("product",product.getId().toString(),product);
+            redisTemplate.opsForHash().put("product", product.getId().toString(), product);
         }
         return allProduct;
     }
 
     /**
      * 以"user:用户id"为key，产品id为hashkey，去redis中查询，
-     *   若不存在此key，将对应信息添加到redis中
-     *   若存在，此key对应的值+count，即：新值=原值+count
-     * @param userId 用户id
-     * @param count 数量
+     * 若不存在此key，将对应信息添加到redis中
+     * 若存在，此key对应的值+count，即：新值=原值+count
+     *
+     * @param userId    用户id
+     * @param count     数量
      * @param productId 产品id
      * @return void
      */
     @Override
     public void addProductToCartToRedis(Integer userId, Integer productId, Integer count) {
-        if(redisTemplate.opsForHash().get("user:"+userId, productId.toString())==null){
-            redisTemplate.opsForHash().put("user:"+userId, productId.toString(),count);
-        }else {
-            redisTemplate.opsForHash().increment("user:"+userId, productId.toString(),count);
+        if (redisTemplate.opsForHash().get("user:" + userId, productId.toString()) == null) {
+            redisTemplate.opsForHash().put("user:" + userId, productId.toString(), count);
+        } else {
+            redisTemplate.opsForHash().increment("user:" + userId, productId.toString(), count);
         }
     }
 
@@ -85,6 +88,7 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
      * 1.使用redisTemplate根据用户id，获取用户购物车中所有产品key信息；
      * 2.遍历产品key信息，获取对应产品和对应产品的数量
      * 3.组装cartDto返回给前端
+     *
      * @param userId 用户id
      * @return cn.lttc.redisdemo.dto.CartDto
      */
@@ -96,9 +100,9 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
         for (Object productKey : productKeys) {
             ProductDto productDto = new ProductDto();
             redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Integer>(Integer.class));
-            Integer count = (Integer)redisTemplate.opsForHash().get("user:" + userId, productKey.toString());
+            Integer count = (Integer) redisTemplate.opsForHash().get("user:" + userId, productKey.toString());
             redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Product>(Product.class));
-            Product product = (Product)redisTemplate.opsForHash().get("product", productKey.toString());
+            Product product = (Product) redisTemplate.opsForHash().get("product", productKey.toString());
             productDto.setCount(count);
             productDto.setProduct(product);
             productDtoList.add(productDto);
@@ -110,23 +114,25 @@ public class ProductServiceImpl implements cn.lttc.redisdemo.service.ProductServ
 
     /**
      * 使用"user:userId"为key，productId为hashkey，去redis中找到对应值，并对其进行+1操作
-     * @param userId 用户id
+     *
+     * @param userId    用户id
      * @param productId 产品id
      * @return void
      */
     @Override
     public void productIncr(Integer userId, Integer productId) {
-        redisTemplate.opsForHash().increment("user:"+userId,productId.toString(),1);
+        redisTemplate.opsForHash().increment("user:" + userId, productId.toString(), 1);
     }
 
     /**
      * 使用"user:userId"为key，productId为hashkey，去redis中找到对应值，并对其进行-1操作
-     * @param userId 用户id
+     *
+     * @param userId    用户id
      * @param productId 产品id
      * @return void
      */
     @Override
     public void productDecr(Integer userId, Integer productId) {
-        redisTemplate.opsForHash().increment("user:"+userId,productId.toString(),-1);
+        redisTemplate.opsForHash().increment("user:" + userId, productId.toString(), -1);
     }
 }

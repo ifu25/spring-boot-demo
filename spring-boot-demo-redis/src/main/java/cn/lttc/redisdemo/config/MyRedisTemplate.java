@@ -18,14 +18,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class MyRedisTemplate {
     /**
      * 初始化RedisTemplate
+     *
      * @param redisConnectionFactory redis连接工厂
-     * @return org.springframework.data.redis.core.RedisTemplate<java.lang.String,java.lang.Object> 返回RedisTemplate供其他类调用
+     * @return org.springframework.data.redis.core.RedisTemplate<java.lang.String, java.lang.Object> 返回RedisTemplate供其他类调用
      */
     @Bean
-    public RedisTemplate<String,Object> redisTemplate(
+    public RedisTemplate<String, Object> redisTemplate(
             RedisConnectionFactory redisConnectionFactory) {
         //自定义实现对于RedisTemplate的配置
-        RedisTemplate<String,Object> template = new RedisTemplate<>();
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
