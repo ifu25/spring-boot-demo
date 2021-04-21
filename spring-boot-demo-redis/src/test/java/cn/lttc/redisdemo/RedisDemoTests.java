@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
@@ -30,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringRunner.class)
 public class RedisDemoTests {
     //jedis客户端连接
-    Jedis jedis = new Jedis("10.201.6.7", 7001);
+    Jedis jedis = new Jedis("10.201.6.7", 6379);
 
     @Autowired
     private RedisUtil redisUtil;
@@ -141,7 +142,7 @@ public class RedisDemoTests {
         jedisPoolConfig.setMaxIdle(5);
         jedisPoolConfig.setMinIdle(3);
         //初始化集群jedis即JedisCluster
-        JedisCluster jedisCluster = new JedisCluster(set, 15000, 15000, 15000, "123456", jedisPoolConfig);
+        JedisCluster jedisCluster = new JedisCluster(set, 15000, 15000, 15000, "lttc", jedisPoolConfig);
         //使用JedisCluster取值赋值，根据hash算法，使用不同的redis节点存/取值
         jedisCluster.set("testkey01", "testvalue");
         jedisCluster.get("testkey");
@@ -206,6 +207,7 @@ public class RedisDemoTests {
     @Test
     public void testRedisTemplateHashString() {
         redisTemplate.opsForHash().put("redisTemplate:hash", "redisTemplate:hashkey", "redisTemplate:hashvalue");
+        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
         String retValue1 = (String) redisTemplate.opsForHash().get("redisTemplate:hash", "redisTemplate:hashkey");
         System.out.println(retValue1);
     }
@@ -222,6 +224,7 @@ public class RedisDemoTests {
         product.setId(6);
         product.setName("test");
         product.setPrice(123.00);
+        redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
         redisTemplate.opsForHash().put("redistemplate:hash", "redisTemplate:hashObjkey", product);
         //错误示范
         //Product productRet = (Product)redisTemplate.opsForHash().get("redistemplate:hash", "redisTemplate:hashObjkey");
@@ -241,8 +244,9 @@ public class RedisDemoTests {
     public void testRedisTemplateHashIncr() {
         redisTemplate.opsForHash().put("redistemplate:hash", "redisTemplate:hashIntKey", 1);
         redisTemplate.opsForHash().increment("redistemplate:hash", "redisTemplate:hashIntKey", 5);
-        Integer retValue2 = (Integer) redisTemplate.opsForHash().get("redistemplate:hash", "redisTemplate:hashIntKey");
-        System.out.println(retValue2);
+        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+        String retValue2 = (String) redisTemplate.opsForHash().get("redistemplate:hash", "redisTemplate:hashIntKey");
+        System.out.println(Integer.parseInt(retValue2));
     }
 
     /**
@@ -333,9 +337,8 @@ public class RedisDemoTests {
         product.setId(5);
         product.setName("abc");
         product.setPrice(123.00);
-
-        redisTemplate.opsForHash().put("test", "2", product);
         redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Product>(Product.class));
+        redisTemplate.opsForHash().put("test", "2", product);
         Product productRet = (Product) redisTemplate.opsForHash().get("test", "2");
 
         System.out.println(productRet);
@@ -354,7 +357,7 @@ public class RedisDemoTests {
         product.setId(5);
         product.setName("abc");
         product.setPrice(123.00);
-
+        redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Product>(Product.class));
         redisTemplate.opsForHash().put("test", "2", product);
         redisUtil.hset("test", "1", product);
         Object productRet = redisUtil.hget("test", "1");
