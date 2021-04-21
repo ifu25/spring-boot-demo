@@ -4,12 +4,14 @@ import cn.lttc.redisdemo.model.Product;
 import cn.lttc.redisdemo.util.RedisUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import lombok.AllArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,6 +20,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +40,8 @@ public class RedisDemoTests {
     private RedisUtil redisUtil;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     //region ===========================jedis测试===========================
 
@@ -163,8 +168,8 @@ public class RedisDemoTests {
      */
     @Test
     public void testRedisTemplateString() {
-        redisTemplate.opsForValue().set("redisTemplate:key", "redisTemplate:value");
-        String retValue = (String) redisTemplate.opsForValue().get("redisTemplate:key");
+        stringRedisTemplate.opsForValue().set("redisTemplate:key", "redisTemplate:value");
+        String retValue = stringRedisTemplate.opsForValue().get("redisTemplate:key");
         System.out.println(retValue);
     }
 
@@ -176,13 +181,13 @@ public class RedisDemoTests {
      */
     @Test
     public void testRedisTemplateStringEx() {
-        redisTemplate.opsForValue().set("redisTemplate:key1", "redisTemplate:value1", 5, TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set("redisTemplate:key1", "redisTemplate:value1", 5, TimeUnit.SECONDS);
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String retValue1 = (String) redisTemplate.opsForValue().get("redisTemplate:key1");
+        String retValue1 = stringRedisTemplate.opsForValue().get("redisTemplate:key1");
         System.out.println(retValue1);
     }
 
@@ -194,7 +199,7 @@ public class RedisDemoTests {
      */
     @Test
     public void testRedisTemplateStringNx() {
-        Boolean aBoolean = redisTemplate.opsForValue().setIfAbsent("redisTemplate:key", "redisTemplate:value2");
+        Boolean aBoolean = stringRedisTemplate.opsForValue().setIfAbsent("redisTemplate:key", "redisTemplate:value2");
         System.out.println(aBoolean);
     }
 
@@ -206,9 +211,8 @@ public class RedisDemoTests {
      */
     @Test
     public void testRedisTemplateHashString() {
-        redisTemplate.opsForHash().put("redisTemplate:hash", "redisTemplate:hashkey", "redisTemplate:hashvalue");
-        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
-        String retValue1 = (String) redisTemplate.opsForHash().get("redisTemplate:hash", "redisTemplate:hashkey");
+        stringRedisTemplate.opsForHash().put("redisTemplate:hash", "redisTemplate:hashkey", "redisTemplate:hashvalue");
+        String retValue1 = (String) stringRedisTemplate.opsForHash().get("redisTemplate:hash", "redisTemplate:hashkey");
         System.out.println(retValue1);
     }
 
@@ -242,10 +246,9 @@ public class RedisDemoTests {
      */
     @Test
     public void testRedisTemplateHashIncr() {
-        redisTemplate.opsForHash().put("redistemplate:hash", "redisTemplate:hashIntKey", 1);
-        redisTemplate.opsForHash().increment("redistemplate:hash", "redisTemplate:hashIntKey", 5);
-        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
-        String retValue2 = (String) redisTemplate.opsForHash().get("redistemplate:hash", "redisTemplate:hashIntKey");
+        stringRedisTemplate.opsForHash().put("redistemplate:hash", "redisTemplate:hashIntKey", "1");
+        stringRedisTemplate.opsForHash().increment("redistemplate:hash", "redisTemplate:hashIntKey", 5);
+        String retValue2 = (String) stringRedisTemplate.opsForHash().get("redistemplate:hash", "redisTemplate:hashIntKey");
         System.out.println(Integer.parseInt(retValue2));
     }
 
@@ -366,7 +369,6 @@ public class RedisDemoTests {
 
         System.out.println(productRet);
     }
-
     //endregion
 
 }
