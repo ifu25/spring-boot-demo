@@ -6,6 +6,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
@@ -18,14 +19,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class MyRedisTemplate {
     /**
      * 初始化RedisTemplate
+     *
      * @param redisConnectionFactory redis连接工厂
-     * @return org.springframework.data.redis.core.RedisTemplate<java.lang.String,java.lang.Object> 返回RedisTemplate供其他类调用
+     * @return org.springframework.data.redis.core.RedisTemplate<java.lang.String, java.lang.Object> 返回RedisTemplate供其他类调用
      */
     @Bean
-    public RedisTemplate<String,Object> redisTemplate(
+    public RedisTemplate<String, Object> redisTemplate(
             RedisConnectionFactory redisConnectionFactory) {
         //自定义实现对于RedisTemplate的配置
-        RedisTemplate<String,Object> template = new RedisTemplate<>();
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
@@ -36,5 +38,22 @@ public class MyRedisTemplate {
         template.setHashValueSerializer(serializer);
         template.setValueSerializer(serializer);
         return template;
+    }
+
+    /**
+     * StringRedisTemplate配置
+     *
+     * @param redisConnectionFactory redis连接工厂
+     * @return org.springframework.data.redis.core.StringRedisTemplate StringRedisTemplate
+     */
+    @Bean
+    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
+        stringRedisTemplate.setConnectionFactory(redisConnectionFactory);
+        stringRedisTemplate.setKeySerializer(RedisSerializer.string());
+        stringRedisTemplate.setValueSerializer(RedisSerializer.string());
+        stringRedisTemplate.setHashKeySerializer(RedisSerializer.string());
+        stringRedisTemplate.setHashValueSerializer(RedisSerializer.string());
+        return stringRedisTemplate;
     }
 }

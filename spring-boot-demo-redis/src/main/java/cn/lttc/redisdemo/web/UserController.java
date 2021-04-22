@@ -30,7 +30,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     //region ===========================抽奖程序===========================
 
@@ -41,16 +41,16 @@ public class UserController {
      * @return org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping("/lottery/prepare")
-    public ModelAndView prepare(ModelAndView modelAndView){
+    public ModelAndView prepare(ModelAndView modelAndView) {
         //从数据库获取所有用户
         List<User> allUser = userService.findAllUser();
         //将用户信息缓存到redis中
         for (User user : allUser) {
-            redisTemplate.opsForHash().put("user",user.getId().toString(),user);
+            redisTemplate.opsForHash().put("user", user.getId().toString(), user);
         }
-        modelAndView.addObject("allUser",allUser);
+        modelAndView.addObject("allUser", allUser);
         modelAndView.setViewName("lottery-adduser");
-        return  modelAndView;
+        return modelAndView;
     }
 
     /**
@@ -61,15 +61,15 @@ public class UserController {
      */
     @RequestMapping("/lottery/addUser")
     @ResponseBody
-    public JSONObject addUser(@RequestBody Map<String,List<Integer>> addUserIdMap){
+    public JSONObject addUser(@RequestBody Map<String, List<Integer>> addUserIdMap) {
         JSONObject jsonpObject = new JSONObject();
         List<Integer> addUserId = addUserIdMap.get("addUserId");
         try {
-            addUserId.forEach((userId)->{
-                redisTemplate.opsForSet().add("lottery",userId);
+            addUserId.forEach((userId) -> {
+                redisTemplate.opsForSet().add("lottery", userId);
             });
-        }catch (Exception e){
-            jsonpObject.put("error",e.getMessage());
+        } catch (Exception e) {
+            jsonpObject.put("error", e.getMessage());
         }
         return jsonpObject;
     }
@@ -80,19 +80,19 @@ public class UserController {
      * @return org.springframework.web.servlet.ModelAndView
      */
     @GetMapping("/lottery/main")
-    public ModelAndView main(){
+    public ModelAndView main() {
         ModelAndView modelAndView = new ModelAndView();
         List<User> userLst = new ArrayList<>();
         Set<Object> lottery = redisTemplate.opsForSet().members("lottery");
         redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<User>(User.class));
         assert lottery != null;
         for (Object userId : lottery) {
-            User user = (User)redisTemplate.opsForHash().get("user", userId.toString());
+            User user = (User) redisTemplate.opsForHash().get("user", userId.toString());
             userLst.add(user);
         }
-        modelAndView.addObject("lotteryUser",userLst);
+        modelAndView.addObject("lotteryUser", userLst);
         modelAndView.setViewName("lottery-main");
-        return  modelAndView;
+        return modelAndView;
     }
 
     /**
@@ -103,15 +103,15 @@ public class UserController {
      */
     @GetMapping("/lottery/lotterying/{count}")
     @ResponseBody
-    public List<User> lotterying(@PathVariable Integer count){
+    public List<User> lotterying(@PathVariable Integer count) {
         List<User> retUserLst = new ArrayList<>();
         JSONObject retObj = new JSONObject();
-        List<Object> lotteryUserIdLst = redisTemplate.opsForSet().pop("lottery",count);
+        List<Object> lotteryUserIdLst = redisTemplate.opsForSet().pop("lottery", count);
         assert lotteryUserIdLst != null;
-        if(lotteryUserIdLst.size()>0){
+        if (lotteryUserIdLst.size() > 0) {
             for (Object lotteryUserId : lotteryUserIdLst) {
                 redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<User>(User.class));
-                User user = (User)redisTemplate.opsForHash().get("user", lotteryUserId.toString());
+                User user = (User) redisTemplate.opsForHash().get("user", lotteryUserId.toString());
                 retUserLst.add(user);
             }
         }

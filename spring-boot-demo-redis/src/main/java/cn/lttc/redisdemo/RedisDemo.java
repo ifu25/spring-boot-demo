@@ -14,6 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("cn.lttc.redisdemo.mapper")
 public class RedisDemo {
     public static void main(String[] args) {
-        SpringApplication.run(RedisDemo.class,args);
+        SpringApplication.run(RedisDemo.class, args);
     }
 }

@@ -13,6 +13,7 @@
 
 - [spring-boot-demo-hello](./spring-boot-demo-hello) 入门示例
 - [spring-boot-demo-config](./spring-boot-demo-config) 配置文件
+- [spring-boot-demo-jdbctemplate](./spring-boot-demo-jdbctemplate) JdbcTemplate 数据库访问
 - [spring-boot-demo-template-thymeleaf](./spring-boot-demo-template-thymeleaf) Thymeleaf 模板引擎
 - [spring-boot-demo-logback](./spring-boot-demo-logback) 日志配置(logback)
 - [spring-boot-demo-shiro](./spring-boot-demo-shiro) Shiro 权限控制

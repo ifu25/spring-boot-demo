@@ -1,6 +1,7 @@
 rootProject.name = 'spring-boot-demo'
 
 include 'spring-boot-demo-hello'
+include 'spring-boot-demo-jdbctemplate'
 include 'spring-boot-demo-logback'
 include 'spring-boot-demo-redis'
 include 'spring-boot-demo-security'
