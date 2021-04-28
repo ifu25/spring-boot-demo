@@ -21,7 +21,7 @@
 - [spring-boot-demo-security](./spring-boot-demo-security) Spring Security 权限控制
 - [spring-boot-demo-swagger](./spring-boot-demo-swagger) Swagger 接口文档
 - [spring-boot-demo-redis](./spring-boot-demo-redis) Redis 缓存操作
-- [spring-boot-demo-mybatisPlus](./spring-boot-demo-mybatisPlus) MyBatis-Plus 持久层
+- [spring-boot-demo-mybatisPlus](./spring-boot-demo-mybatis-plus) MyBatis-Plus 持久层
 
 ## 文档手册
 
