@@ -1,0 +1,10 @@
+HELP.md
+.gradle
+.idea
+*.iml
+.settings
+
+.vscode/
+logs/
+build/
+out/

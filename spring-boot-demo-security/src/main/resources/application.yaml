@@ -1,0 +1,6 @@
+spring:
+  security:
+    # 此处配置的用户会因 SecurityConfig 中配置用户而失效
+    user:
+      name: lttc
+      password: all
