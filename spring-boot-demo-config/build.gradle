@@ -1,0 +1,13 @@
+plugins {
+
+}
+
+dependencies {
+    //此项目单独需要的依赖在此引用
+    //所有项目都可能会用到的依赖在 root 项目的 build.gralde 中引用
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'mysql:mysql-connector-java:8.0.23'
+
+    //配置元数据的依赖
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+}
