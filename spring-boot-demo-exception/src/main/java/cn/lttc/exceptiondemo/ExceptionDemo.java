@@ -1,19 +1,19 @@
-package cn.lttc.hellodemo;
+package cn.lttc.exceptiondemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Spring Boot 入门编程演示
+ * 全局异常处理编程演示
  *
  * @author xinggang
- * @create 2021-03-20
+ * @create 2021-04-27
  */
 @SpringBootApplication
-public class HelloDemo {
+public class ExceptionDemo {
 
     public static void main(String[] args) {
-        SpringApplication.run(HelloDemo.class, args);
+        SpringApplication.run(ExceptionDemo.class, args);
     }
 
 }

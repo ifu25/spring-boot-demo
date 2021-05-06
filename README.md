@@ -13,6 +13,7 @@
 
 - [spring-boot-demo-hello](./spring-boot-demo-hello) 入门示例
 - [spring-boot-demo-config](./spring-boot-demo-config) 配置文件
+- [spring-boot-demo-exception](./spring-boot-demo-exception) 全局异常处理
 - [spring-boot-demo-jdbctemplate](./spring-boot-demo-jdbctemplate) JdbcTemplate 数据库访问
 - [spring-boot-demo-template-thymeleaf](./spring-boot-demo-template-thymeleaf) Thymeleaf 模板引擎
 - [spring-boot-demo-logback](./spring-boot-demo-logback) 日志配置(logback)
@@ -20,7 +21,7 @@
 - [spring-boot-demo-security](./spring-boot-demo-security) Spring Security 权限控制
 - [spring-boot-demo-swagger](./spring-boot-demo-swagger) Swagger 接口文档
 - [spring-boot-demo-redis](./spring-boot-demo-redis) Redis 缓存操作
-- [spring-boot-demo-mybatisPlus](./spring-boot-demo-mybatisPlus) MyBatis-Plus 持久层
+- [spring-boot-demo-mybatisPlus](./spring-boot-demo-mybatis-plus) MyBatis-Plus 持久层
 
 ## 文档手册
 

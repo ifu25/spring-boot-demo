@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Security 编程演示</title>
+</head>
+<body>
+
+<div th:replace="layout/_header::nav"></div>
+
+<div>
+    <h5>提供了 2 个测试用户：</h5>
+    <table>
+        <tr>
+            <td>用户</td>
+            <td>密码</td>
+            <td>角色</td>
+            <td>说明</td>
+        </tr>
+        <tr>
+            <td>admin</td>
+            <td>1111</td>
+            <td>admin</td>
+            <td>能访问所有页面</td>
+        </tr>
+        <tr>
+            <td>demo</td>
+            <td>1111</td>
+            <td>demo</td>
+            <td>只能访问 Demo 页面</td>
+        </tr>
+    </table>
+</div>
+
+<style>
+    table, td {
+        border: solid 1px gray;
+        padding: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+</style>
+<div th:replace="layout/_footer::css"></div>
+</body>
+</html>
