@@ -1,0 +1,10 @@
+# 服务信息
+server:
+  port: 8080
+# 数据库连接信息
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.201.6.7:3306/demo?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+    username: ${db.master.username}
+    password: ${db.master.password}
