@@ -117,7 +117,7 @@ public class BrandEntity implements Serializable {
 
    在需要校验的bean前添加@Valid，校验不通过，返回400
 
-```java
+```
     @PostMapping("/save1")
     public R save1(@Valid @RequestBody BrandEntity brand){
         //处理逻辑....
@@ -141,7 +141,7 @@ public class BrandEntity implements Serializable {
 
 2. 在本方法中处理返回结果
 
-   ```java
+   ```
    @PostMapping("/save2")
    public R save2(@Valid @RequestBody BrandEntity brand, BindingResult result){
        if (result.hasErrors()){
@@ -275,7 +275,7 @@ public class BrandGroupEntity {
 
   使用@Validated注解，来开启校验和标注使用哪个校验分组
 
-  ```java
+  ```
   @PostMapping("/save4")
   public R save4(@Validated({Group.Add.class}) @RequestBody BrandGroupEntity brand){
       return R.ok();
@@ -358,19 +358,19 @@ public class BrandGroupEntity {
 
    在自定义校验器中关联注解：
 
-   ```java
+   ```
    public class ListValueConstraintValidator implements ConstraintValidator<ListValue,Integer> //指定用什么校验注解
    ```
 
    在自定义注解中关联校验器：
 
-   ```java
+   ```
    @Constraint(validatedBy = {ListValueConstraintValidator.class})  //指定用什么校验器
    ```
 
 4. 使用
 
-   ```java
+   ```
    /**
     * 显示状态[0-不显示；1-显示]
     */
@@ -398,7 +398,7 @@ public class BrandController {
 
 直接参数校验抛出的异常为：ConstraintViolationException
 
-```java
+```
 @ExceptionHandler(value = ConstraintViolationException.class)
 public R ConstraintViolationException(ConstraintViolationException e){
     HashMap<String, String> errorMap = new HashMap<>();
@@ -442,7 +442,7 @@ public class UserEntity {
 
 JobEntity:
 
-```java
+```
 @Data
 public class JobEntity {
 
