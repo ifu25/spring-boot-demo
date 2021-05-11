@@ -456,7 +456,7 @@ public class JobEntity {
 
 controller：
 
-```java
+```
 @PostMapping("/save5")
 public R save5(@Valid @RequestBody UserEntity user){
     return R.ok();
