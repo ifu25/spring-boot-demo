@@ -380,7 +380,7 @@ public class BrandGroupEntity {
 
 ### 直接参数校验
 
-   	有时候接口的参数比较少，只有一个活着两个参数，这时候就没必要定义一个DTO来接收参数，可以直接接收参数，在controller中校验。这时controller类需要用@Validated注解标识。
+   	有时候接口的参数比较少，只有一个或者两个参数，这时候就没必要定义一个DTO来接收参数，可以直接接收参数，在controller中校验。这时controller类需要用@Validated注解标识。
 
 > 示例：传入的id不为空
 

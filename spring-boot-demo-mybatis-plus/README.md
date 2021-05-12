@@ -68,7 +68,7 @@ CREATE TABLE mp_user
 );
 
 -- 插入数据
-INSERT INTO user (id, name, age, email) VALUES
+INSERT INTO mp_user (id, name, age, email) VALUES
 (1, 'Jone', 18, 'test1@baomidou.com'),
 (2, 'Jack', 20, 'test2@baomidou.com'),
 (3, 'Tom', 28, 'test3@baomidou.com'),
