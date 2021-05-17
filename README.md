@@ -22,6 +22,7 @@
 - [spring-boot-demo-swagger](./spring-boot-demo-swagger) Swagger 接口文档
 - [spring-boot-demo-redis](./spring-boot-demo-redis) Redis 缓存操作
 - [spring-boot-demo-mybatisPlus](./spring-boot-demo-mybatis-plus) MyBatis-Plus 持久层
+- [spring-boot-demo-web-datavalidate](./spring-boot-demo-web-datavalidate) 数据检查验证
 
 ## 文档手册
 

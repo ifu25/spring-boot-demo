@@ -1,0 +1,71 @@
+### API测试
+
+### 1. 演示校验错误后有默认响应
+### 需将cn.lttc.datavalidatedemo.exception.ControllerExceptionHandler中的@RestControllerAdvice注释
+POST http://localhost:8080/brand/save1
+Content-Type: application/json
+
+{
+  "name":"",
+  "logo":"123",
+  "firstLetter":"a"
+}
+
+### 2. 演示在本方法封装结果集
+POST http://localhost:8080/brand/save2
+Content-Type: application/json
+
+{
+  "name":"1",
+  "logo":"123",
+  "firstLetter":"a",
+  "sort":"2"
+}
+
+### 3. 演示在统一异常处理类中处理
+POST http://localhost:8080/brand/save3
+Content-Type: application/json
+
+{
+  "name":"",
+  "logo":"123",
+  "firstLetter":"a",
+  "sort":"2"
+}
+
+### 4. 演示分组校验
+POST http://localhost:8080/brand/save4
+Content-Type: application/json
+
+{
+  "brandId":"1",
+  "name":"",
+  "logo":"http://www.baidu.com",
+  "firstLetter":"a",
+  "sort":"2",
+  "showStatus":2
+}
+
+<> 2021-05-14T042243.200.json
+
+### 5. 演示直接参数校验
+GET http://localhost:8080/brand/get?id=
+
+### 6. 演示嵌套校验
+POST http://localhost:8080/brand/save5
+Content-Type: application/json
+
+{
+  "userId":"123",
+  "name":"张三",
+  "job":{
+    "name":"程序员"
+  },
+  "jobs":[
+    {"name":"门卫"},
+    {"name":"会计"}
+  ]
+}
+
+
+
