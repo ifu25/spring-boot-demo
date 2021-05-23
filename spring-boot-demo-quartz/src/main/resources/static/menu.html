@@ -1,0 +1,94 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quartz演示</title>
+</head>
+<body>
+<div class="container">
+    <h3>Quartz演示实例</h3>
+    <p>
+        <a href="/demo" target="showframe">演示实例</a>
+    </p>
+    <h3>JobDataMap演示实例</h3>
+    <p>
+        <a href="/map1" target="showframe">JobDataMap演示一</a>|<a href="/map2" target="showframe">JobDataMap演示二</a>|<a
+            href="/map3" target="showframe">JobDataMap演示三</a>
+    </p>
+    <h3>状态与并发</h3>
+    <p>
+        <a href="/status1" target="showframe">状态与并发一</a>|<a href="/status2" target="showframe">状态与并发二</a>|<a
+            href="/status3" target="showframe">状态与并发三</a>|<a href="/status4" target="showframe">状态与并发四</a>
+    </p>
+    <h3>SimpleTrigger</h3>
+    <p><input id="begindate"> </p>
+    <p>格式为“yyyy/MM/dd HH:mm:ss”</p>
+    <p>
+        <button onclick="simple1()">指定时间触发</button>
+        <button onclick="simple2()">指定时间连续触发</button>
+        <button onclick="simple3()">五分钟后执行</button>
+        <button onclick="simple4()">执行到指定时间</button>
+    </p>
+    <h3>CronTrigger</h3>
+    <p>
+        <a href="/cron" target="showframe">Cron演示</a>
+    </p>
+    <h3>TriggerListener</h3>
+    <p>
+        <a href="/tls1" target="showframe">演示一</a>|<a href="/tls2" target="showframe">演示二</a>
+    </p>
+    <h3>JobListener</h3>
+    <p>
+        <a href="/jls1" target="showframe">演示一</a>|<a href="/jls2" target="showframe">演示二</a>
+    </p>
+    <h3>SchedulerListener</h3>
+    <p>
+        【<a href="/sls1" target="showframe">添加任务</a>|
+        <a href="/sls2" target="showframe">删除任务</a>】|【
+        <a href="/sls3" target="showframe">部署任务</a>|
+        <a href="/sls4" target="showframe">卸载任务</a>】|【
+        <a href="/sls5" target="showframe">启动调度器</a>】|【
+        <a href="/sls6" target="showframe">暂停恢复Trigger</a>|
+        <a href="/sls7" target="showframe">暂停恢复Job</a>】
+        <br>
+        <br>
+        <a href="/sls8" target="showframe">关闭调度器</a>|
+        <a href="/sls9" target="showframe">清空调度器</a>
+    </p>
+    <h3>JobStore</h3>
+    <p>
+        <a href="/jobstore" target="showframe">启动任务</a>|
+        <a href="/pausetrigger" target="showframe">暂停任务</a>|
+        <a href="/resumeTrigger" target="showframe">恢复任务</a>
+    </p>
+</div>
+</body>
+<script>
+    function simple1() {
+        var d = document.getElementById("begindate").value
+        window.open("/simple1?d=" + d, "showframe")
+    }
+
+    function simple2() {
+        var d = document.getElementById("begindate").value
+        window.open("/simple2?d=" + d, "showframe")
+    }
+
+    function simple3() {
+        window.open("/simple3", "showframe")
+    }
+
+    function simple4() {
+        var d = document.getElementById("begindate").value
+        window.open("/simple4?d=" + d, "showframe")
+    }
+</script>
+<style>
+    body {
+        text-align: center;
+    }
+
+    .container {
+        width: 100%;
+    }
+</style>
+</html>
