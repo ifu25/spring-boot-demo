@@ -8,6 +8,5 @@ dependencies {
     implementation 'com.baomidou:mybatis-plus:3.4.2'
     implementation 'mysql:mysql-connector-java:8.0.25'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.4.5'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:2.4.5'
     implementation 'c3p0:c3p0:0.9.1.2'
 }
