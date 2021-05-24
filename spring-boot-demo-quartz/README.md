@@ -150,7 +150,7 @@ object SchedulerHelper {
 - org.quartz.scheduler.instanceIdGenerator.class
   - 非必须
   - string类型，class类名
-  - 默认值 org.quartz.simpl .SimpleInstanceIdGenerator、
+  - 默认值 org.quartz.simpl .SimpleInstanceIdGenerator
 - 仅当org.quartz.scheduler.instanceId设置为“AUTO” 时才有效，默认为“org.quartz.simpl.SimpleInstanceIdGenerator”，根据主机名和时间戳生成instance id。其他生成器：SystemPropertyInstanceIdGenerator （从系统属性org.quartz.scheduler.instanceId获取instance id），HostnameInstanceIdGenerator （根据当前主机名生成（InetAddress.getLocalHost().getHostName()）），你也可以实现InstanceIdGenerator 接口实现自己的生成类
   
 - org.quartz.scheduler.threadName
@@ -338,7 +338,7 @@ org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX
   - 非必须
   - boolean类型
   - 默认值false
-  - 是否开启集群功能。如果多个Quaryz实例使用同一组数据库表，则必须设置为true，否则可能会破坏数据
+  - 是否开启集群功能。如果多个Quartz实例使用同一组数据库表，则必须设置为true，否则可能会破坏数据
 
 - org.quartz.jobStore.clusterCheckinInterval
   - 非必须
@@ -357,7 +357,7 @@ org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX
   - boolean类型
   - 默认值false
   - 设置这个参数为 true 会告诉 Quartz获取数据库连接后不要调用它的 setAutoCommit(false) 方法
-    - 数据库连接connectionm默认是自动提交到数据库，这样，执行完update ,delete或者insert的时候都会自动提交到数据库，无法回滚事务
+    - 数据库连接connection默认是自动提交到数据库，这样，执行完update ,delete或者insert的时候都会自动提交到数据库，无法回滚事务
     - 设置connection.setautocommit(false)后只有程序调用`connection.commit()`的时候才会将先前执行的语句一起提交到数据库，这样就实现了数据库的事务
 
 - org.quartz.jobStore.selectWithLockSQL
@@ -370,7 +370,7 @@ org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX
   - 非必须
   - boolean类型
   - 默认值false
-  - 值为 true 时告知 Quartz(当使用 JobStoreTX 或 CMT) 调用 JDBC 连接的 setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE) 方法。这有助于阻止某些数据库在高负载和长时间事物时锁的超时
+  - 值为 true 时告知 Quartz(当使用 JobStoreTX 或 CMT) 调用 JDBC 连接的 setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE) 方法。这有助于阻止某些数据库在高负载和长时间事务时锁的超时
 
 - org.quartz.jobStore.acquireTriggersWithinLock
   - 非必须
