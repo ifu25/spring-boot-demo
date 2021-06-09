@@ -2,7 +2,7 @@
 
 > 2021-04-15 @xinggang
 
-参考：[《阿里巴巴Java开发手册_1.4.0.pdf》](./file/阿里巴巴Java开发手册_1.4.0.pdf)
+参考：[《阿里巴巴Java开发手册_1.7.0_嵩山版.pdf》](./file/阿里巴巴Java开发手册_1.7.0_嵩山版.pdf)、[Github](https://github.com/alibaba/p3c)
 
 ## 一、开发指南 
 

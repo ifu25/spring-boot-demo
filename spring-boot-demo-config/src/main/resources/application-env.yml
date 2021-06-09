@@ -1,0 +1,6 @@
+# 数据库配置信息
+db:
+  # 主数据库
+  master:
+    username: demo
+    password: demo

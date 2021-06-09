@@ -3,6 +3,13 @@ plugins {
 }
 
 dependencies {
+    //Security 权限框架
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    //模板权限标签属性支持
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
+    //测试
     testImplementation 'org.springframework.security:spring-security-test'
+
+    //模板引擎
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }

@@ -1,0 +1,24 @@
+# 服务信息
+server:
+  port: 9000
+# Spring 配置
+spring:
+  # 当前配置
+  profiles:
+    # 加载开发环境的配置文件
+    active: dev
+    # 使用env环境的配置文件内容替换数据库连接的用户名及密码
+    include: env
+
+# 自定义配置(person)
+person:
+  name: 张三
+  age: 18
+  birth: 2020/11/12
+  lists: a,b,c,d
+  maps:
+    key1: value1
+    key2: value2
+com:
+  example:
+    user-name: main
